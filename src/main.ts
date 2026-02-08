@@ -1,13 +1,16 @@
 import './style.css'
-import { setTimer } from './time';
-
-let moneyCount = 0;
-const cigarettePerDay = 8;
-const packetPrice = 13.5;
+import { setTimer } from './components/timer/timer';
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div class="text-8xl" id="timer"></div>
+  <header>
+    <nav class="flex justify-end w-full">
+      <div class="text-xl rounded p-1 px-2 border bg-neutral-700" id="time-timer"></div>
+    </nav>
+  </header>
+  <main>
+
+  </main>
 `;
 
-const timerHtmlElement = document.querySelector('#timer')
+const timerHtmlElement = document.querySelector('#time-timer')
 if(timerHtmlElement) setTimer(timerHtmlElement);

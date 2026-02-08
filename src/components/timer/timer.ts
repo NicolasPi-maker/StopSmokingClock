@@ -1,8 +1,7 @@
 const stopDayTimeStamp = new Date("2026-02-03T22:00:00");
 
 const getTimeDiff = (from: Date, to: Date) => {
-    const timestamp = Math.abs(from.getTime() - to.getTime());
-    let timeStampInSeconds = timestamp / 1000;
+    let timeStampInSeconds = getDiffTimeInSeconds(from, to)
 
     // Get count of year in timeStampInSeconds we have
     const year = Math.floor(timeStampInSeconds / timeInSecondRegistry.year);
@@ -68,6 +67,10 @@ const timeInSecondRegistry = {
     minutes: 60,
 }
 
+const getDiffTimeInSeconds = (from: Date, to: Date) => {
+    const timestamp = Math.abs(from.getTime() - to.getTime());
+    return timestamp / 1000;
+}
 
 export const setTimer = (element: Element) => {
     const updateTime = () => {
