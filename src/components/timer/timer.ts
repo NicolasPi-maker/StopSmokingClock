@@ -1,36 +1,35 @@
-const stopDayTimeStamp = new Date("2026-02-03T22:00:00");
+export const stopDayTimeStamp = new Date("2026-02-03T22:00:00");
+export let timeDiffInSeconds = 0
 
-const getTimeDiff = (from: Date, to: Date) => {
-    let timeStampInSeconds = getDiffTimeInSeconds(from, to)
+export const getTimeInTimeQuantity = (seconds: number) => {
+    // Get count of year in seconds we have
+    const years = Math.floor(seconds / timeInSecondRegistry.year);
+    // Remove amount of years seconds
+    seconds -= years * timeInSecondRegistry.year;
 
-    // Get count of year in timeStampInSeconds we have
-    const year = Math.floor(timeStampInSeconds / timeInSecondRegistry.year);
-    // Remove amount of years timeStampInSeconds
-    timeStampInSeconds -= year * timeInSecondRegistry.year;
+    // Get count of months in seconds remaining
+    const months = Math.floor(seconds / timeInSecondRegistry.month);
+    // Remove amount of months seconds
+    seconds -= months * timeInSecondRegistry.month;
 
-    // Get count of months in timeStampInSeconds remaining
-    const months = Math.floor(timeStampInSeconds / timeInSecondRegistry.month);
-    // Remove amount of months timeStampInSeconds
-    timeStampInSeconds -= months * timeInSecondRegistry.month;
+    // Get count of days in seconds remaining
+    const days = Math.floor(seconds / timeInSecondRegistry.day);
+    // Remove amount of days seconds
+    seconds -= days * timeInSecondRegistry.day;
 
-    // Get count of days in timeStampInSeconds remaining
-    const days = Math.floor(timeStampInSeconds / timeInSecondRegistry.day);
-    // Remove amount of days timeStampInSeconds
-    timeStampInSeconds -= days * timeInSecondRegistry.day;
+    // Get count of hour in seconds remaining
+    const hours = Math.floor(seconds / timeInSecondRegistry.hour);
+    // Remove amount of months seconds
+    seconds -= hours * timeInSecondRegistry.hour;
 
-    // Get count of hour in timeStampInSeconds remaining
-    const hours = Math.floor(timeStampInSeconds / timeInSecondRegistry.hour);
-    // Remove amount of months timeStampInSeconds
-    timeStampInSeconds -= hours * timeInSecondRegistry.hour;
+    // Get count of minutes in seconds remaining
+    const minutes = Math.floor(seconds / timeInSecondRegistry.minutes);
+    // Remove amount of minutes seconds
+    seconds -= Math.floor(minutes * timeInSecondRegistry.minutes);
 
-    // Get count of minutes in timeStampInSeconds remaining
-    const minutes = Math.floor(timeStampInSeconds / timeInSecondRegistry.minutes);
-    // Remove amount of minutes timeStampInSeconds
-    timeStampInSeconds -= Math.floor(minutes * timeInSecondRegistry.minutes);
+    const remainingSeconds = Math.floor(seconds)
 
-    const seconds = Math.floor(timeStampInSeconds)
-
-    return {year, months, days, hours, minutes, seconds};
+    return {years, months, days, hours, minutes, seconds: remainingSeconds};
 }
 
 const formatToTwoDigits = (time: number) => {
@@ -38,12 +37,12 @@ const formatToTwoDigits = (time: number) => {
 }
 
 const getFormatedTimeToDisplay = (
-    hours: number, minutes: number, seconds: number, separator:string
+    timeQuantity: {hours: number, minutes: number, seconds: number}, separator: string
 ) => {
     const timeArray:Array<string> = [
-        formatToTwoDigits(hours), 
-        formatToTwoDigits(minutes),
-        formatToTwoDigits(seconds)
+        formatToTwoDigits(timeQuantity.hours), 
+        formatToTwoDigits(timeQuantity.minutes),
+        formatToTwoDigits(timeQuantity.seconds)
     ];
 
     const timeToString = timeArray.join(separator)
@@ -51,7 +50,11 @@ const getFormatedTimeToDisplay = (
     return timeToString;
 }
 
-const getFormatedFullTimeToDisplay = (years: number, months: number, days: number) => {
+const getFormatedFullTimeToDisplay = (timeQuantity: {years: number, months: number, days: number}) => {
+    let years = timeQuantity.years;
+    let months = timeQuantity.months
+    let days = timeQuantity.days;
+
     const formatedYears =  years > 0 ? `${years} ${years > 1 ? "ans" : "an"}` : "";
     const formatedMonths = months > 0 ? `${months} mois` : "";
     const formatedDays = days > 0 ? `${days} ${days > 1 ? "jours" : "jour"}` : "";
@@ -72,10 +75,27 @@ const getDiffTimeInSeconds = (from: Date, to: Date) => {
     return timestamp / 1000;
 }
 
+export const getTimerPrint = (timeQuantity: {
+    years: number, 
+    months: number, 
+    days: number, 
+    hours: number, 
+    minutes: number, 
+    seconds: number}) => {
+        
+    return `<p>
+        ${getFormatedFullTimeToDisplay(timeQuantity)} 
+        ${getFormatedTimeToDisplay(timeQuantity, ":")}
+    </p>`
+}
+
 export const setTimer = (element: Element) => {
     const updateTime = () => {
-        let timeDiff = getTimeDiff(stopDayTimeStamp, new Date())
-        element.innerHTML = getFormatedFullTimeToDisplay(timeDiff.year, timeDiff.months, timeDiff.days) + " " + getFormatedTimeToDisplay(timeDiff.hours, timeDiff.minutes, timeDiff.seconds, ":");
+        timeDiffInSeconds = getDiffTimeInSeconds(stopDayTimeStamp, new Date())
+        let timeQuantity = getTimeInTimeQuantity(timeDiffInSeconds)
+    
+        element.innerHTML = getTimerPrint(timeQuantity);
     }
-    setInterval(() => updateTime(), 1000)
+    updateTime()
+    setInterval(updateTime, 1000)
 }
