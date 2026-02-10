@@ -1,7 +1,8 @@
 import './style.css'
 import { setTimer } from './components/timer/timer';
 import { setCigarretteCount, setMoneyCount, setTimeSavedCount } from './components/stats/moneyCount';
-import moneyPig from '../public/money-pig.png';
+import moneyPig from './assets/imgs/money-pig.png';
+import coinSound from './assets/sounds/coin.mp3';
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <header>
@@ -18,6 +19,10 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
         <span><h3 id="timesaved-count" class="flex items-center text-lg gap-2"></h3></span>
       </div>
        <img src="${moneyPig}" alt="pink money pig with a gold coin overhead" width="200px" heigth="200px" />
+       <audio id="myAudio">
+          <source src="${coinSound}" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
     </div>
   </main>
 `;
@@ -26,6 +31,7 @@ const timerHtmlElement = document.querySelector('#time-timer');
 const moneyCountHtmlElement = document.querySelector('#money-count');
 const cigarretteCountHtmlElement = document.querySelector('#cigarrette-count');
 const timeSavedHtmlElement = document.querySelector('#timesaved-count');
+export const coinSoundHtmlElement: HTMLAudioElement = document.getElementById("myAudio") as HTMLAudioElement;
 
 if(timerHtmlElement) {
     setTimer(timerHtmlElement)
