@@ -1,5 +1,5 @@
 import { timeDiffInSeconds, getTimeInTimeQuantity, getTimerPrint} from "../timer/timer";
-import { coinSoundHtmlElement } from "../../main";
+import { coinSoundHtmlElement, playAudioIsAllowed } from "../../main";
 
 const packetPrice = 13.5;
 const cigarettePerDay = 8;
@@ -9,7 +9,6 @@ const moneyPerDay = moneyPerCigarette * cigarettePerDay
 
 const secondsInDay = 60 * 60 * 24;
 const moneyPerSeconds = moneyPerDay / secondsInDay;
-
 
 const getValueInMoneyFormat = (value: number) => {
    return new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR" }).format(value)
@@ -40,7 +39,7 @@ export const setMoneyCount = (element: Element) => {
         setTimeout(() => {
             element.classList.remove('text-green-500')
         }, 500);
-        if(coinSoundHtmlElement) {
+        if(coinSoundHtmlElement && playAudioIsAllowed) {
             coinSoundHtmlElement.play();
         }
     }, 1000 * 60 * 3)
@@ -59,3 +58,4 @@ export const setTimeSavedCount = (element: Element) => {
         element.innerHTML = `${getTimeSaved()}`;
     }, 1000 * 60 * 60)
 }
+
