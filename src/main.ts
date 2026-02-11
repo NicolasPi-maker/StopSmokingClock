@@ -1,10 +1,7 @@
 import './style.css'
 import { setTimer } from './components/timer/timer';
 import { setCigarretteCount, setMoneyCount, setTimeSavedCount } from './components/stats/moneyCount';
-import moneyPig from './assets/imgs/money-pig.png';
 import coinSound from './assets/sounds/coin.mp3';
-import cigaretteSvg from './assets/svg/cigarette.svg';
-import clockSvg from './assets/svg/clock.svg';
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <header>
