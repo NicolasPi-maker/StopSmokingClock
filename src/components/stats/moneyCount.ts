@@ -46,16 +46,16 @@ export const setMoneyCount = (element: Element) => {
 }
 
 export const setCigarretteCount = (element: Element) => {
-    element.innerHTML = `${getCigarretteCount()} cigarettes`;
+    element.innerHTML += `<p>${getCigarretteCount()} cigarettes</p>`;
     setInterval(() => {
-        element.innerHTML = `${getCigarretteCount()} cigarettes`;
+        element.innerHTML += `<p>${getCigarretteCount()} cigarettes</p>`;
     }, 1000 * 60 * 60)
 }
 
 export const setTimeSavedCount = (element: Element) => {
-    element.innerHTML = `${getTimeSaved()}`;
+    element.innerHTML += `${getTimeSaved()}`;
     setInterval(() => {
-        element.innerHTML = `${getTimeSaved()}`;
+        element.innerHTML += `${getTimeSaved()}`;
     }, 1000 * 60 * 60)
 }
 

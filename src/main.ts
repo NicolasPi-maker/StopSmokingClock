@@ -3,6 +3,8 @@ import { setTimer } from './components/timer/timer';
 import { setCigarretteCount, setMoneyCount, setTimeSavedCount } from './components/stats/moneyCount';
 import moneyPig from './assets/imgs/money-pig.png';
 import coinSound from './assets/sounds/coin.mp3';
+import cigaretteSvg from './assets/svg/cigarette.svg';
+import clockSvg from './assets/svg/clock.svg';
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <header>
@@ -10,19 +12,25 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
       <div class="text-xl rounded p-1 px-2 inset-shadow-sm inset-shadow-neutral-900 bg-neutral-700" id="time-timer"></div>
     </nav>
   </header>
-  <main class="p-4 justify-centerflex">
+  <main class="justify-centerflex">
     <div class="flex flex-col items-center">
       <h2 id="money-count" class="gravitas-one-regular text-6xl transition-color duration-500"></h2>
       <div class="flex gap-4 justify-center opacity-75"> 
-        <span><h3 id="cigarrette-count" class="flex items-center text-lg gap-2"></h3></span>
+        <span>
+          <h3 id="cigarrette-count" class="flex items-center text-lg gap-2">
+          </h3>
+        </span>
         |
-        <span><h3 id="timesaved-count" class="flex items-center text-lg gap-2"></h3></span>
+        <span>
+          <h3 id="timesaved-count" class="flex items-center text-lg gap-2">
+          </h3>
+        </span>
       </div>
-       <img src="${moneyPig}" alt="pink money pig with a gold coin overhead" width="200px" heigth="200px" />
        <audio id="myAudio">
           <source src="${coinSound}" type="audio/mpeg">
           Your browser does not support the audio element.
         </audio>
+        <div class="piggy-container"></div>
     </div>
     <button id="audio-toggler" class="rounded-full flex place-items-center bg-neutral-400 shadow-2xl absolute bottom-0 right-0 m-2 text-neutral-800 p-2 border h-10 w-10"></button>
   </main>
