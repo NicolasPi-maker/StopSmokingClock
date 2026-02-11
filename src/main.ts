@@ -9,8 +9,8 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
       <div class="text-xl rounded p-1 px-2 inset-shadow-sm inset-shadow-neutral-900 bg-neutral-700" id="time-timer"></div>
     </nav>
   </header>
-  <main class="justify-centerflex">
-    <div class="flex flex-col items-center">
+  <main class="flex h-full jusitfy-center items-center">
+    <div class="flex flex-col items-center w-full">
       <h2 id="money-count" class="gravitas-one-regular text-6xl transition-color duration-500"></h2>
       <div class="flex gap-4 justify-center opacity-75"> 
         <span>
