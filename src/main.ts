@@ -73,12 +73,28 @@ const setProperlySoundIcon = (btnAudioElement: HTMLButtonElement, isAllowed: Boo
   }
 }
 
+let audioUnlocked = false;
+const unlockAudio = () => {
+  if (audioUnlocked) return;
+  coinAudioPlayer.play()
+    .then(() => {
+      coinAudioPlayer.pause();
+      coinAudioPlayer.currentTime = 0;
+      audioUnlocked = true;
+    })
+    .catch(() => {});
+}
+
 let playAudioIsAllowed = false;
 const initSoundButton = (element: HTMLButtonElement) => {
   setProperlySoundIcon(element, playAudioIsAllowed);
   
   element.addEventListener('click', () => {
     playAudioIsAllowed = !playAudioIsAllowed;
+    if (playAudioIsAllowed && !audioUnlocked) {
+      // play a sound with no noise and time to init sound to be play on mobile 
+      unlockAudio()
+    }
     setProperlySoundIcon(element, playAudioIsAllowed);
   })
 }
