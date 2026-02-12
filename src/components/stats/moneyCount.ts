@@ -1,5 +1,5 @@
 import { timeDiffInSeconds, getTimeInTimeQuantity, getTimerPrint} from "../timer/timer";
-import { coinSoundHtmlElement, playAudioIsAllowed } from "../../main";
+import { playSound, coinAudioPlayer } from "../../main"; 
 
 const packetPrice = 13.5;
 const cigarettePerDay = 8;
@@ -39,8 +39,8 @@ export const setMoneyCount = (element: Element) => {
         setTimeout(() => {
             element.classList.remove('text-green-500')
         }, 500);
-        if(coinSoundHtmlElement && playAudioIsAllowed) {
-            coinSoundHtmlElement.play();
+        if(coinAudioPlayer) {
+            playSound(coinAudioPlayer)
         }
     }, 1000 * 60 * 3)
 }
