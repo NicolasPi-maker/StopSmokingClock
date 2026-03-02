@@ -59,6 +59,10 @@ body {
   font-style: normal;
 }
 
+#time-timer {
+  font-variant-numeric: tabular-nums;
+}
+
 @keyframes coin {
   0% {
     background-position: 0 0;
